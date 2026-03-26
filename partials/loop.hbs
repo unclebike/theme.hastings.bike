@@ -35,75 +35,8 @@
 		
      
 		
-        {{!-- Temporarily hidden: Events and Featured Business sections
-        {{#get 'posts' filter='tag:hash-events' include='tags,authors' limit='4' }}
-          {{#foreach posts from="1"}}
-            {{#if @site.members_enabled}}
-              {{#if @member}}
-                {{#if @first}}
-                  {{>item show_excerpt=true is_top=true section_title="EVENTS"}}
-                {{else}}
-                  {{>item show_excerpt=true is_top=true}}
-                {{/if}}
-              {{else}}
-                {{^match @custom.hero_options "Subscribe form"}}
-                  {{#if @first}}
-                    {{>item show_excerpt=false is_top=true section_title="EVENTS"}}
-                  {{else}}
-                    {{>item show_excerpt=false is_top=true}}
-                  {{/if}}
-                {{else}}
-                  {{#if @first}}
-                    {{>item show_excerpt=true is_top=true section_title="EVENTS"}}
-                  {{else}}
-                    {{>item show_excerpt=true is_top=true}}
-                  {{/if}}
-                {{/match}}
-              {{/if}}
-            {{else}}
-              {{#if @first}}
-                {{>item show_excerpt=true is_top=true section_title="EVENTS"}}
-              {{else}}
-                {{>item show_excerpt=true is_top=true}}
-              {{/if}}
-            {{/if}}
-          {{/foreach}}
-        {{/get}}
-         {{#get 'posts' filter='tag:hash-POI' include='tags,authors' limit='1' }}
-          {{#foreach posts from="1"}}
-            {{#if @site.members_enabled}}
-              {{#if @member}}
-                {{#if @first}}
-                  {{>item show_excerpt=true is_top=true section_title="Featured Business"}}
-                {{else}}
-                  {{>item show_excerpt=true is_top=true}}
-                {{/if}}
-              {{else}}
-                {{^match @custom.hero_options "Subscribe form"}}
-                  {{#if @first}}
-                    {{>item show_excerpt=false is_top=true section_title="Featured Business"}}
-                  {{else}}
-                    {{>item show_excerpt=false is_top=true}}
-                  {{/if}}
-                {{else}}
-                  {{#if @first}}
-                    {{>item show_excerpt=true is_top=true section_title="Featured Business"}}
-                  {{else}}
-                    {{>item show_excerpt=true is_top=true}}
-                  {{/if}}
-                {{/match}}
-              {{/if}}
-            {{else}}
-              {{#if @first}}
-                {{>item show_excerpt=true is_top=true section_title="Featured Business"}}
-              {{else}}
-                {{>item show_excerpt=true is_top=true}}
-              {{/if}}
-            {{/if}}
-          {{/foreach}}
-        {{/get}}
-        --}}
         </div>
+      {{>community-events}}
       {{>featured}}
       {{#get "posts" filter="tag:routes" include="tags,authors" limit="9"}}
         {{#if posts}}
