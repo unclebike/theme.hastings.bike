@@ -6524,3 +6524,10 @@ div.is-archive-image {
   font-size: 1.4rem;
 }
 
+@media (max-width: 768px) {
+  .community-events-section {
+    grid-column: span 18;
+    margin-top: 1rem;
+  }
+}
+
