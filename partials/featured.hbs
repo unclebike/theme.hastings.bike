@@ -19,7 +19,7 @@
 {{/if}}
 {{/get}}
 {{else}}
-{{#get "posts" limit="6" filter="featured:true" include="authors" as |featured|}}
+{{#get "posts" limit="3" filter="featured:true" include="authors" as |featured|}}
 {{#if featured}}
 <small class="global-subtitle">{{t "Featured posts"}}</small>
 <div class="featured-section global-radius{{#match @custom.style_for_featured_section "Gray"}} is-gray{{else match @custom.style_for_featured_section "Accent color"}} global-dynamic-color is-accent{{else match @custom.style_for_featured_section "Accent color/Gray"}} is-accent-gray{{else match @custom.style_for_featured_section "Gray/Accent color"}} is-gray-accent{{/match}}">

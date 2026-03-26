@@ -6391,3 +6391,35 @@ div.is-archive-image {
     }
   }
 
+/* Route Explorer
+   –––––––––––––––––––––––––––––––––––––––––––––––––––– */
+.route-explorer-section {
+  margin: 0 0 6vh;
+}
+
+
+.route-explorer-map {
+  max-width: var(--max-width-global-wrap);
+  margin: 0 auto;
+  padding: 0 var(--margin-wrap-left-right);
+}
+
+.route-explorer-map iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: var(--border-radius);
+  background: var(--color-darker-gray);
+}
+
+@media (max-width: 767px) {
+  .route-explorer-map {
+    padding: 0;
+  }
+  .route-explorer-map iframe {
+    aspect-ratio: 4 / 5;
+    border-radius: 0;
+  }
+}
+
