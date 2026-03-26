@@ -105,14 +105,16 @@
         --}}
         </div>
       {{>featured}}
-      {{#foreach posts from="4" to="4"}}
-        <small class="loop-subtitle global-subtitle">{{t "Previous posts"}}</small>
-      {{/foreach}}
-      <div class="loop-wrap">
-        {{#foreach posts from="4"}}
-          {{>item show_excerpt=true}}
-        {{/foreach}}
-      </div>
+      {{#get "posts" filter="tag:routes" include="tags,authors" limit="9"}}
+        {{#if posts}}
+          <small class="loop-subtitle global-subtitle">{{t "Previous posts"}}</small>
+          <div class="loop-wrap">
+            {{#foreach posts}}
+              {{>item show_excerpt=true}}
+            {{/foreach}}
+          </div>
+        {{/if}}
+      {{/get}}
     {{else}}
       <div class="loop-wrap">
         {{#foreach posts}}
