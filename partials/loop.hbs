@@ -21,7 +21,7 @@
     {{^is "paged"}}
       <small class="global-subtitle">{{t "What’s new?"}}</small>
       <div class="loop-wrap is-top">
-        {{#get 'posts' filter='tags:-[hash-events,hash-POI]' include='tags,authors' limit='1' }}
+        {{#get 'posts' filter='featured:true+tags:-[hash-events,hash-POI]' include='tags,authors' limit='1' }}
           {{#foreach posts}}
             {{^has tag="-hash-events"}}
               {{>item show_excerpt=true show_all_option=true is_first=true is_top=true}}
@@ -40,7 +40,7 @@
       {{>featured}}
       {{#get "posts" filter="tag:routes" include="tags,authors" limit="9"}}
         {{#if posts}}
-          <small class="loop-subtitle global-subtitle">{{t "Previous posts"}}</small>
+          <small class="loop-subtitle global-subtitle">{{t "Routes"}}</small>
           <div class="loop-wrap">
             {{#foreach posts}}
               {{>item show_excerpt=true}}

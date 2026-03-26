@@ -1,0 +1,72 @@
+{{!< default}}
+{{#post}}
+{{#match @page.show_title_and_feature_image}}
+{{>posts/header is_custom=true}}
+{{/match}}
+
+<div class="global-padding">
+  {{!-- Route Explorer Map --}}
+  <div class="route-explorer-map" style="margin-bottom:2.5em">
+    <iframe
+      src="https://boq.bike/api/routes/explore/map?org=hastings&amp;site=https://hastings.bike"
+      title="Hastings County Route Explorer"
+      loading="lazy"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  {{!-- Route listing --}}
+  {{#get "posts" limit="all" filter="tag:routes" include="tags" order="title asc"}}
+    {{#if posts}}
+      <div class="explore-header">
+        <h2 class="explore-heading">{{plural posts.length empty="No routes" singular="1 Route" plural="% Routes"}}</h2>
+      </div>
+
+      <div class="explore-grid">
+        {{#foreach posts}}
+          <a href="{{url}}" class="explore-card" data-excerpt="{{custom_excerpt}}">
+            <div class="explore-card-img">
+              {{#if feature_image}}
+                <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy">
+              {{else}}
+                <div class="explore-card-img-placeholder"></div>
+              {{/if}}
+            </div>
+            <div class="explore-card-body">
+              <h3 class="explore-card-title">{{title}}</h3>
+              <div class="explore-card-stats"></div>
+              <div class="explore-card-meta">
+                {{#foreach tags visibility="public"}}
+                  {{#unless (match slug "routes")}}
+                    <span class="explore-pill">{{name}}</span>
+                  {{/unless}}
+                {{/foreach}}
+              </div>
+            </div>
+          </a>
+        {{/foreach}}
+      </div>
+    {{/if}}
+  {{/get}}
+</div>
+
+<script>
+(function() {
+  document.querySelectorAll('.explore-card').forEach(function(card) {
+    var excerpt = card.getAttribute('data-excerpt') || '';
+    var statsEl = card.querySelector('.explore-card-stats');
+    if (!statsEl || !excerpt) return;
+
+    var html = [];
+
+    var km = excerpt.match(/(\d+(?:\.\d+)?)\s*km/i);
+    if (km) html.push(km[1] + ' km');
+
+    var diff = excerpt.match(/(\w+)\s+difficulty/i);
+    if (diff) html.push(diff[1]);
+
+    if (html.length) statsEl.innerHTML = html.join(' <span class="stat-sep">\u2022</span> ');
+  });
+})();
+</script>
+{{/post}}

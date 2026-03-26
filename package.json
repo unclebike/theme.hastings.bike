@@ -35,7 +35,7 @@
             "color_scheme": {
                 "type": "select",
                 "options": ["Light", "Dark", "Sepia", "Auto: Light/Dark", "Auto: Sepia/Dark"],
-                "default": "Light"
+                "default": "Dark"
             },
             "logo_for_dark_color_scheme": {
                 "type": "image",

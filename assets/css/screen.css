@@ -6531,3 +6531,245 @@ div.is-archive-image {
   }
 }
 
+/* ── Explore Page ─────────────────────────────────────────────────────
+   Fluid typography via clamp() — scales smoothly between 375px and 1280px
+   No breakpoint jumps for type; layout shifts only where structure changes.
+
+   Type scale (mobile → desktop):
+     Heading:   0.72rem → 0.82rem    (label / count)
+     Title:     0.92rem → 1.1rem     (card title)
+     Excerpt:   0.78rem → 0.85rem    (supporting text)
+     Pill:      0.64rem → 0.72rem    (metadata)
+
+   Spacing scale uses clamp() too for fluid rhythm.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.explore-header {
+  margin-bottom: clamp(1rem, 2vw, 1.75rem);
+}
+
+.explore-heading {
+  font-size: clamp(0.72rem, 0.65rem + 0.25vw, 0.82rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-border-two);
+  margin: 0;
+}
+
+/* ── Grid — fluid columns: 1 → 2 → 3 via auto-fill ──────────────────── */
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+}
+
+/* On narrow viewports: switch to compact rows */
+@media (max-width: 640px) {
+  .explore-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────── */
+
+.explore-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-body);
+  border: 1px solid var(--color-border-one);
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.explore-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--ghost-accent-color, #9B7FD4);
+  box-shadow: 0 12px 32px -8px rgba(0,0,0,0.15);
+}
+
+.explore-card:active {
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+
+/* Mobile: horizontal compact row */
+@media (max-width: 640px) {
+  .explore-card {
+    flex-direction: row;
+    align-items: center;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-border-one);
+    background: none;
+    padding: clamp(0.6rem, 1.5vw, 0.85rem) 0;
+    min-height: 48px;
+  }
+  .explore-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--color-border-one);
+    background: var(--color-border-one);
+  }
+  .explore-card:active {
+    transform: none;
+    background: var(--color-border-one);
+  }
+}
+
+/* ── Card Image + Stats Overlay ───────────────────────────────────────── */
+
+.explore-card-img {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-border-one);
+}
+
+.explore-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.explore-card:hover .explore-card-img img {
+  transform: scale(1.04);
+}
+
+.explore-card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-border-one);
+}
+
+/* Stats — compact line under the title */
+.explore-card-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.explore-card-stats:empty {
+  display: none;
+}
+
+.stat-item {
+  font-size: clamp(0.73rem, 0.66rem + 0.2vw, 0.8rem);
+  color: var(--color-border-two);
+  white-space: nowrap;
+}
+
+.stat-sep {
+  margin: 0 0.35em;
+  color: var(--color-border-one);
+  font-size: 0.7em;
+}
+
+@media (max-width: 640px) {
+  .explore-card-img {
+    width: clamp(72px, 22vw, 100px);
+    height: clamp(52px, 16vw, 72px);
+    aspect-ratio: auto;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .explore-card:hover .explore-card-img img {
+    transform: none;
+  }
+  /* Hide overlay on mobile thumbs — too small */
+  .explore-card-stats {
+    display: none;
+  }
+}
+
+/* ── Card Body ───────────────────────────────────────────────────────── */
+
+.explore-card-body {
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.6rem, 1.2vw, 0.9rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.15rem, 0.4vw, 0.3rem);
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .explore-card-body {
+    padding: 0 0 0 clamp(0.6rem, 2vw, 0.85rem);
+    justify-content: center;
+  }
+}
+
+/* ── Title — fluid, optically weighted ───────────────────────────────── */
+
+.explore-card-title {
+  font-size: clamp(0.92rem, 0.82rem + 0.35vw, 1.1rem);
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+@media (max-width: 640px) {
+  .explore-card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: initial;
+  }
+}
+
+/* ── Excerpt — hidden on desktop (stats overlay replaces it),
+   shown as single line on mobile (no overlay there) ──────────────────── */
+
+.explore-card-excerpt {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .explore-card-excerpt {
+    display: block;
+    font-size: 0.73rem;
+    line-height: 1.4;
+    color: var(--color-border-two);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* ── Pill Tags — fluid, with optical spacing ─────────────────────────── */
+
+.explore-card-meta {
+  display: flex;
+  gap: clamp(0.25rem, 0.5vw, 0.4rem);
+  flex-wrap: wrap;
+}
+
+.explore-card-meta:empty {
+  display: none;
+}
+
+.explore-pill {
+  font-size: clamp(0.64rem, 0.58rem + 0.18vw, 0.72rem);
+  font-weight: 500;
+  padding: 0.15em 0.6em;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--ghost-accent-color, #9B7FD4) 15%, transparent);
+  color: var(--ghost-accent-color, #9B7FD4);
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
