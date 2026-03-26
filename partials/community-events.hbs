@@ -1,0 +1,53 @@
+{{!-- Community Events - fetched from external sources via Cloudflare Worker --}}
+<div class="community-events-section global-padding">
+  <small class="global-subtitle">{{t "Upcoming Events"}}</small>
+  <div class="community-events-wrap" id="community-events">
+    <div class="community-events-loading">Loading events…</div>
+  </div>
+  <div class="community-events-footer">
+    <a href="https://www.hastingscounty.com/adventures/events" target="_blank" rel="noopener" class="community-events-more">{{t "See all events →"}}</a>
+  </div>
+</div>
+
+<script>
+(function() {
+  var endpoint = 'https://hastings-events.adam-7e5.workers.dev/?limit=3';
+  var container = document.getElementById('community-events');
+  if (!container) return;
+
+  fetch(endpoint)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.events || !data.events.length) {
+        container.innerHTML = '<p class="community-events-empty">No upcoming events found.</p>';
+        return;
+      }
+      var html = '';
+      data.events.forEach(function(ev) {
+        var title = ev.title || '';
+        // Decode HTML entities
+        var el = document.createElement('textarea');
+        el.innerHTML = title;
+        title = el.value;
+
+        html += '<a href="' + ev.url + '" target="_blank" rel="noopener" class="community-event-card">';
+        if (ev.image) {
+          html += '<div class="community-event-image"><img src="' + ev.image.replace(/&amp;/g, '&') + '" alt="' + (ev.imageAlt || title) + '" loading="lazy"></div>';
+        }
+        html += '<div class="community-event-info">';
+        if (ev.date) {
+          html += '<span class="community-event-date">' + ev.date + '</span>';
+        }
+        if (ev.location) {
+          html += '<span class="community-event-location">' + ev.location + '</span>';
+        }
+        html += '<h3 class="community-event-title">' + title + '</h3>';
+        html += '</div></a>';
+      });
+      container.innerHTML = html;
+    })
+    .catch(function() {
+      container.innerHTML = '<p class="community-events-empty">Events could not be loaded.</p>';
+    });
+})();
+</script>
