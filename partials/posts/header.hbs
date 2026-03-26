@@ -46,6 +46,7 @@
 			{{/if}}
 		</div>
 		{{^if is_custom}}
+		{{^has tag="routes"}}
 		{{^match @custom.feature_image_orientation "Disable"}}
 		{{#if feature_image}}
 		<div class="post-header-image{{#match @custom.feature_image_orientation "Landscape wide"}} is-wide{{else match @custom.feature_image_orientation "Natural wide"}} is-wide{{else match @custom.feature_image_orientation "Panoramic wide"}} is-wide{{/match}}">
@@ -60,6 +61,7 @@
 		</div>
 		{{/if}}
 		{{/match}}
+		{{/has}}
 		{{/if}}
 	</div>
 </div>
