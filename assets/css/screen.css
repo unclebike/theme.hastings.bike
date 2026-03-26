@@ -6427,6 +6427,7 @@ div.is-archive-image {
    –––––––––––––––––––––––––––––––––––––––––––––––––––– */
 .community-events-section {
   margin: 0;
+  grid-column: span 6;
 }
 
 .community-events-wrap {
