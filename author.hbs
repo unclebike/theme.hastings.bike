@@ -1,5 +1,5 @@
 {{!< default}}
-{{#author}}
+{{#primary_author}}
 {{#contentFor "cover_image"}}
 {{#if cover_image}}
 <div class="global-cover" style="background-image:url({{{img_url cover_image size="xl" format="webp"}}})"></div>
@@ -8,6 +8,6 @@
 {{/if}}
 {{/contentFor}}
 {{>posts/header archive_page=true is_custom=true title=name custom_excerpt=bio custom_image=profile_image}}
-{{/author}}
+{{/primary_author}}
 {{>loop is_archive=true}}
 {{pagination}}

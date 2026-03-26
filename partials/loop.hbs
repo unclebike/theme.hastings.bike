@@ -38,7 +38,7 @@
         {{>community-events}}
         </div>
       {{>featured}}
-      {{#get "posts" filter="tag:routes" include="tags,authors" limit="9"}}
+      {{#get "posts" filter="tag:routes+tags:-[hash-Guides,hash-events,hash-POI]" include="tags,authors" limit="9"}}
         {{#if posts}}
           <small class="loop-subtitle global-subtitle">{{t "Routes"}}</small>
           <div class="loop-wrap">
