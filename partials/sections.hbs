@@ -1,17 +1,20 @@
-{{#match @custom.tags_for_special_section}}
-{{#get "posts" limit="5" filter="tag:[{{@custom.tags_for_special_section}}]+tags:-[routes,hash-events,hash-POI]" include="authors" as |special_posts|}}
-	{{#if special_posts}}
-		{{>related label=(t "You might also like")}}
-	{{/if}}
-{{/get}}
-{{else}}
+{{!-- Only show "You might also like" on non-route posts --}}
 {{#foreach posts limit="1"}}
-{{#if primary_tag}}
-{{#get "posts" limit="5" filter="tag:{{primary_tag.slug}}+id:-{{id}}+tags:-[routes,hash-events,hash-POI]" include="authors" as |special_posts|}}
-	{{#if special_posts}}
-		{{>related label=(t "You might also like")}}
-	{{/if}}
-{{/get}}
-{{/if}}
+{{^has tag="routes"}}
+  {{#match @custom.tags_for_special_section}}
+    {{#get "posts" limit="5" filter="tag:[{{@custom.tags_for_special_section}}]+tags:-[routes,hash-events,hash-POI]" include="authors" as |special_posts|}}
+      {{#if special_posts}}
+        {{>related label=(t "You might also like")}}
+      {{/if}}
+    {{/get}}
+  {{else}}
+    {{#if primary_tag}}
+      {{#get "posts" limit="5" filter="tag:{{primary_tag.slug}}+id:-{{id}}+tags:-[routes,hash-events,hash-POI]" include="authors" as |special_posts|}}
+        {{#if special_posts}}
+          {{>related label=(t "You might also like")}}
+        {{/if}}
+      {{/get}}
+    {{/if}}
+  {{/match}}
+{{/has}}
 {{/foreach}}
-{{/match}}
