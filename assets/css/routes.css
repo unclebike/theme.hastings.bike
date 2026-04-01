@@ -46,108 +46,103 @@
    font-family: var(--font-family-one);
    font-weight: var(--font-weight-one-bold);
    font-size: clamp(1.5rem, 1.2rem + 0.6vw, 1.9rem);
-   margin: 0 0 1.2rem;
+   margin: 0 0 1rem;
    padding-bottom: 1rem;
    border-bottom: var(--border) var(--color-border-one);
    color: var(--color-font-one);
 }
 
-.route-stats-list {
-   margin: 0;
+
+/* --------------------------------------------------------------------------
+   3. Stats table inside sidebar
+
+   JS moves the <table> from post content into #route-stats-sidebar.
+   We override table display so rows render as label+value pairs stacked
+   vertically, matching the previous <dl> style.
+   -------------------------------------------------------------------------- */
+.route-stats table,
+.route-stats table tbody,
+.route-stats table tr,
+.route-stats table td {
+   display: block;
+   border: none;
    padding: 0;
+   margin: 0;
+   background: transparent;
+   width: auto;
 }
 
-.route-stats-list dt {
-   font-size: clamp(1rem, 0.9rem + 0.2vw, 1.1rem);
-   font-weight: var(--font-weight-three-medium);
-   color: var(--color-font-one);
-   opacity: var(--opacity-two);
-   text-transform: uppercase;
-   letter-spacing: 0.5px;
-   margin-top: 1rem;
+.route-stats table tr {
+   display: flex;
+   flex-direction: column;
+   gap: 0.2rem;
+   margin-top: 0.9rem;
 }
 
-.route-stats-list dt:first-child {
+.route-stats table tr:first-child {
    margin-top: 0;
 }
 
-.route-stats-list dd {
+/* Label cell */
+.route-stats table td:first-child {
+   font-size: clamp(1rem, 0.9rem + 0.2vw, 1.1rem);
+   font-weight: var(--font-weight-three-medium);
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+   opacity: var(--opacity-two);
+   color: var(--color-font-one);
+}
+
+/* Value cell */
+.route-stats table td:last-child {
    font-size: clamp(1.3rem, 1.1rem + 0.3vw, 1.5rem);
    font-weight: var(--font-weight-three-bold);
    color: var(--color-font-one);
-   margin: 0.2rem 0 0;
-   padding: 0;
+   line-height: 1.25;
 }
 
-.route-stats-cta {
-   display: flex;
-   flex-direction: column;
-   gap: 0.6rem;
+
+/* --------------------------------------------------------------------------
+   4. KG Button cards inside sidebar
+
+   JS moves .kg-button-card elements (and any other siblings after the table)
+   into the sidebar. The first card gets a top separator; subsequent cards
+   stack tightly below.
+   -------------------------------------------------------------------------- */
+
+/* Separator between stats table and first button */
+.route-stats table ~ .kg-card {
    margin-top: 1.4rem;
    padding-top: 1.2rem;
    border-top: var(--border) var(--color-border-one);
+   width: 100%;
+}
+
+/* Subsequent buttons: no separator, small gap */
+.route-stats table ~ .kg-card + .kg-card {
+   margin-top: 0.6rem;
+   padding-top: 0;
+   border-top: none;
+}
+
+/* KG button fills sidebar width */
+.route-stats .kg-button-card .kg-btn {
+   width: 100%;
+   text-align: center;
+   box-sizing: border-box;
 }
 
 
 /* --------------------------------------------------------------------------
-   3. CTA Buttons
-   -------------------------------------------------------------------------- */
-.route-btn {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-family: var(--font-family-three);
-   font-size: clamp(1.2rem, 1rem + 0.3vw, 1.4rem);
-   font-weight: var(--font-weight-three-bold);
-   line-height: 1;
-   text-decoration: none;
-   padding: 0.9rem 1.2rem;
-   border-radius: calc(var(--border-radius) * 0.5);
-   min-height: 44px;
-   transition: filter 0.2s ease, transform 0.15s ease;
-}
+   5. In-content Stats Table
 
-.route-btn:hover {
-   text-decoration: none;
-   transform: translateY(-1px);
-}
-
-.route-btn:active {
-   transform: translateY(0);
-}
-
-.route-btn-primary {
-   background: var(--ghost-accent-color);
-   color: var(--color-font-two);
-}
-
-.route-btn-primary:hover {
-   filter: brightness(1.1);
-   color: var(--color-font-two);
-}
-
-.route-btn-secondary {
-   background: var(--color-two);
-   color: var(--color-font-one);
-}
-
-.route-btn-secondary:hover {
-   background: var(--color-border-one);
-   color: var(--color-font-one);
-}
-
-
-/* --------------------------------------------------------------------------
-   4. In-content Stats Table — styled as a distinct stats card
-
-   On desktop (>1024px): hidden, sidebar shows the data instead.
-   On mobile/tablet (≤1024px): visible as a 2-column grid stats card.
-
-   The table has 7 rows × 2 cells (label | value).
-   We override display to lay it out as a grid of stat tiles.
+   Desktop (>1024px): hidden until JS runs (FOUC guard). After JS moves the
+   table to the sidebar, this rule no longer matches it.
+   Mobile/tablet (≤1024px): JS doesn't run, table stays in content and is
+   styled as a 2-column grid stats card.
    -------------------------------------------------------------------------- */
 
-/* Desktop: hide the table (sidebar takes over) */
+/* Desktop: hide in content (JS will move it to sidebar) */
 @media (min-width: 1025px) {
    .route-post-content table {
       display: none;
@@ -219,7 +214,7 @@
 
 
 /* --------------------------------------------------------------------------
-   5. KG card refinements for route posts
+   6. KG card refinements for route posts
    -------------------------------------------------------------------------- */
 .route-post .post-content .kg-toggle-card + .kg-toggle-card {
    margin-top: -0.5rem;

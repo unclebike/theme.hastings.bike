@@ -1,72 +1,29 @@
 /**
  * Route Post Template — routes.js
  *
- * 1. Extracts stats from the HTML table in post content
- * 2. Populates the desktop sidebar (table is hidden on desktop via CSS)
- * 3. Extracts CTA link(s) and mirrors them in the sidebar
+ * On desktop: finds the stats table in post content, then moves it and all
+ * following siblings (GPX button, any other KG button cards) into the sidebar.
+ * On mobile: does nothing — the table stays in content and CSS styles it.
  */
 
 (function () {
    'use strict';
 
-   var statsList = document.getElementById('route-stats-list');
-   var sidebarCta = document.querySelector('#route-stats-sidebar .route-stats-cta');
-   var postContent = document.querySelector('.route-post-content');
+   if (window.innerWidth < 1025) return;
 
-   if (!postContent) return;
+   var sidebar  = document.getElementById('route-stats-sidebar');
+   var content  = document.querySelector('.route-post-content');
 
-   // -----------------------------------------------------------------------
-   // 1. Extract stats from the HTML table
-   // -----------------------------------------------------------------------
-   var table = postContent.querySelector('table');
-   var stats = [];
+   if (!sidebar || !content) return;
 
-   if (table) {
-      table.querySelectorAll('tr').forEach(function (row) {
-         var cells = row.querySelectorAll('td, th');
-         if (cells.length >= 2) {
-            stats.push({
-               label: cells[0].textContent.trim(),
-               value: cells[1].textContent.trim()
-            });
-         }
-      });
+   var table = content.querySelector('table');
+   if (!table) return;
+
+   // Move table and every following sibling into the sidebar card
+   var el = table;
+   while (el) {
+      var next = el.nextElementSibling;
+      sidebar.appendChild(el);
+      el = next;
    }
-
-   // -----------------------------------------------------------------------
-   // 2. Extract CTA link(s)
-   // -----------------------------------------------------------------------
-   var ctaButtons = [];
-
-   // KG Button cards first
-   postContent.querySelectorAll('.kg-button-card a, .kg-btn').forEach(function (btn) {
-      ctaButtons.push({ text: btn.textContent.trim(), href: btn.getAttribute('href') || '#' });
-   });
-
-   // Fallback: plain links with download/GPX/cue-sheet text
-   if (ctaButtons.length === 0) {
-      postContent.querySelectorAll('a').forEach(function (link) {
-         var text = link.textContent.trim().toLowerCase();
-         if (text.indexOf('download') !== -1 || text.indexOf('gpx') !== -1 || text.indexOf('cue sheet') !== -1 || text.indexOf('ride with gps') !== -1) {
-            ctaButtons.push({ text: link.textContent.trim(), href: link.getAttribute('href') || '#' });
-         }
-      });
-   }
-
-   // -----------------------------------------------------------------------
-   // 3. Populate sidebar
-   // -----------------------------------------------------------------------
-   if (statsList && stats.length > 0) {
-      statsList.innerHTML = stats.map(function (s) {
-         return '<dt>' + s.label + '</dt><dd>' + s.value + '</dd>';
-      }).join('');
-   }
-
-   if (sidebarCta && ctaButtons.length > 0) {
-      sidebarCta.innerHTML = ctaButtons.map(function (btn, i) {
-         var cls = i === 0 ? 'route-btn route-btn-primary' : 'route-btn route-btn-secondary';
-         return '<a href="' + btn.href + '" class="' + cls + '">' + btn.text + '</a>';
-      }).join('');
-   }
-
 })();
