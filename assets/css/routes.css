@@ -170,17 +170,24 @@
 .route-stats .kg-toggle-card .kg-toggle-heading {
    padding: 0;
    border: none;
+   justify-content: center;
+   gap: 0.4rem;
 }
 .route-stats .kg-toggle-card .kg-toggle-heading-text {
    font-size: 1rem;
-   font-weight: var(--font-weight-three-medium);
-   text-transform: uppercase;
-   letter-spacing: 0.06em;
+   font-weight: normal;
+   text-transform: none;
+   letter-spacing: normal;
    opacity: var(--opacity-two);
    color: var(--color-font-one);
+   text-align: center;
+}
+.route-stats .kg-toggle-card .kg-toggle-card-icon {
+   flex-shrink: 0;
+   opacity: var(--opacity-two);
 }
 .route-stats .kg-toggle-card .kg-toggle-content {
-   padding: 0.4rem 0 0;
+   padding: 0.5rem 0 0;
 }
 .route-stats .kg-toggle-card .kg-toggle-content p {
    font-size: 1rem;
@@ -188,6 +195,7 @@
    opacity: var(--opacity-two);
    color: var(--color-font-one);
    margin: 0;
+   text-align: center;
 }
 
 
