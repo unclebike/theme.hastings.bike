@@ -31,7 +31,11 @@
 .route-stats {
    position: sticky;
    top: 3vh;
-   width: 100%; /* constrains sticky element to parent's 290px */
+   /* Override legacy screen.css full-bleed rule that sets margin-left:-50vw, width:100vw, left:50% */
+   width: 100%;
+   left: auto;
+   margin-left: 0;
+   margin-right: 0;
    box-sizing: border-box;
    background: var(--color-five);
    border-radius: var(--border-radius);
