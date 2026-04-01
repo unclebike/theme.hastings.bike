@@ -39,5 +39,10 @@
 
    toMove.forEach(function (el) {
       sidebar.appendChild(el);
+      // Rename button labels to a compact sidebar-appropriate string
+      if (el.classList.contains('kg-button-card')) {
+         var btn = el.querySelector('.kg-btn');
+         if (btn) btn.textContent = 'Open in RWGPS';
+      }
    });
 })();
