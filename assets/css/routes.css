@@ -1,69 +1,49 @@
 /* ==========================================================================
    Route Post Template — routes.css
    Extends the existing post-sidebar/post-wrap pattern from screen.css.
-   Adds fluid typography, stats card styling, and mobile stats grid.
    ========================================================================== */
 
 
 /* --------------------------------------------------------------------------
-   1. Fluid Typography Scale (route pages only)
-      Overrides the hard breakpoint sizes in screen.css for .route-post
+   1. Fluid Typography (route pages only)
    -------------------------------------------------------------------------- */
 .route-post .post-content {
    font-size: clamp(1.7rem, 1.4rem + 0.6vw, 2rem);
 }
 
-.route-post .post-content h1 {
-   font-size: clamp(2.8rem, 1.6rem + 3vw, 5.8rem);
-}
-
-.route-post .post-content h2 {
-   font-size: clamp(2.2rem, 1.4rem + 2vw, 4rem);
-}
-
-.route-post .post-content h3 {
-   font-size: clamp(1.9rem, 1.2rem + 1.5vw, 3.2rem);
-}
-
-.route-post .post-content h4 {
-   font-size: clamp(1.7rem, 1.2rem + 1vw, 2.4rem);
-}
-
-.route-post .post-content h5 {
-   font-size: clamp(1.6rem, 1.2rem + 0.8vw, 2rem);
-}
-
-.route-post .post-content p {
-   line-height: 1.65;
-}
+.route-post .post-content h1 { font-size: clamp(2.8rem, 1.6rem + 3vw, 5.8rem); }
+.route-post .post-content h2 { font-size: clamp(2.2rem, 1.4rem + 2vw, 4rem); }
+.route-post .post-content h3 { font-size: clamp(1.9rem, 1.2rem + 1.5vw, 3.2rem); }
+.route-post .post-content h4 { font-size: clamp(1.7rem, 1.2rem + 1vw, 2.4rem); }
+.route-post .post-content h5 { font-size: clamp(1.6rem, 1.2rem + 0.8vw, 2rem); }
+.route-post .post-content p  { line-height: 1.65; }
 
 .route-post .post-content blockquote {
    font-size: clamp(2rem, 1.4rem + 1.2vw, 2.6rem);
 }
 
-.route-post .post-content blockquote.kg-blockquote-alt {
-   font-size: clamp(2.6rem, 1.6rem + 2vw, 4.5rem);
-}
-
 
 /* --------------------------------------------------------------------------
-   2. Route Sidebar — stats card styled within the existing .post-sidebar shell
-      .post-sidebar is already position:absolute, width:290px, height:100%
-      .subscribe-form.is-sticky is already position:sticky
-      We just need to style the contents.
+   2. Stats Sidebar — desktop
+   .post-sidebar is already: position:absolute, right:5vw, width:290px, height:100%
+   We add: position:sticky on the inner card, constrained with width:100%
    -------------------------------------------------------------------------- */
-.route-sidebar .route-stats {
+.route-stats {
+   position: sticky;
+   top: 3vh;
+   width: 100%; /* constrains sticky element to parent's 290px */
+   box-sizing: border-box;
    background: var(--color-five);
    border-radius: var(--border-radius);
-   padding: clamp(1.5rem, 2vw, 2.2rem);
+   padding: clamp(1.4rem, 2vw, 2rem);
 }
 
 .route-stats-title {
    font-family: var(--font-family-one);
    font-weight: var(--font-weight-one-bold);
-   font-size: clamp(1.6rem, 1.2rem + 0.8vw, 2rem);
-   margin: 0 0 clamp(1rem, 1.5vw, 1.5rem);
-   padding-bottom: clamp(0.8rem, 1vw, 1.2rem);
+   font-size: clamp(1.5rem, 1.2rem + 0.6vw, 1.9rem);
+   margin: 0 0 1.2rem;
+   padding-bottom: 1rem;
    border-bottom: var(--border) var(--color-border-one);
    color: var(--color-font-one);
 }
@@ -74,14 +54,13 @@
 }
 
 .route-stats-list dt {
-   font-family: var(--font-family-three);
-   font-size: clamp(1rem, 0.9rem + 0.2vw, 1.2rem);
+   font-size: clamp(1rem, 0.9rem + 0.2vw, 1.1rem);
    font-weight: var(--font-weight-three-medium);
    color: var(--color-font-one);
    opacity: var(--opacity-two);
    text-transform: uppercase;
    letter-spacing: 0.5px;
-   margin-top: clamp(0.8rem, 1vw, 1.1rem);
+   margin-top: 1rem;
 }
 
 .route-stats-list dt:first-child {
@@ -89,8 +68,7 @@
 }
 
 .route-stats-list dd {
-   font-family: var(--font-family-three);
-   font-size: clamp(1.3rem, 1.1rem + 0.4vw, 1.6rem);
+   font-size: clamp(1.3rem, 1.1rem + 0.3vw, 1.5rem);
    font-weight: var(--font-weight-three-bold);
    color: var(--color-font-one);
    margin: 0.2rem 0 0;
@@ -98,12 +76,12 @@
 }
 
 .route-stats-cta {
-   margin-top: clamp(1rem, 1.5vw, 1.8rem);
-   padding-top: clamp(0.8rem, 1vw, 1.2rem);
-   border-top: var(--border) var(--color-border-one);
    display: flex;
    flex-direction: column;
    gap: 0.6rem;
+   margin-top: 1.4rem;
+   padding-top: 1.2rem;
+   border-top: var(--border) var(--color-border-one);
 }
 
 
@@ -115,15 +93,14 @@
    align-items: center;
    justify-content: center;
    font-family: var(--font-family-three);
-   font-size: clamp(1.3rem, 1.1rem + 0.3vw, 1.5rem);
+   font-size: clamp(1.2rem, 1rem + 0.3vw, 1.4rem);
    font-weight: var(--font-weight-three-bold);
    line-height: 1;
    text-decoration: none;
-   padding: clamp(0.9rem, 1vw, 1.1rem) clamp(1rem, 1.5vw, 1.6rem);
+   padding: 0.9rem 1.2rem;
    border-radius: calc(var(--border-radius) * 0.5);
-   min-height: 48px;
+   min-height: 44px;
    transition: filter 0.2s ease, transform 0.15s ease;
-   cursor: pointer;
 }
 
 .route-btn:hover {
@@ -157,15 +134,88 @@
 
 
 /* --------------------------------------------------------------------------
-   4. Hide original stats table — moved into sidebar
+   4. In-content Stats Table — styled as a distinct stats card
+
+   On desktop (>1024px): hidden, sidebar shows the data instead.
+   On mobile/tablet (≤1024px): visible as a 2-column grid stats card.
+
+   The table has 7 rows × 2 cells (label | value).
+   We override display to lay it out as a grid of stat tiles.
    -------------------------------------------------------------------------- */
-.route-post .post-content table.route-data-table {
-   display: none;
+
+/* Desktop: hide the table (sidebar takes over) */
+@media (min-width: 1025px) {
+   .route-post-content table {
+      display: none;
+   }
+}
+
+/* Mobile/tablet: beautiful stats card */
+@media (max-width: 1024px) {
+   /* Override all table-display values so we can use grid */
+   .route-post-content table,
+   .route-post-content table tbody,
+   .route-post-content table tr,
+   .route-post-content table td {
+      display: block;
+      border: none;
+      padding: 0;
+      margin: 0;
+   }
+
+   .route-post-content table {
+      background: var(--color-five);
+      border-radius: var(--border-radius);
+      padding: clamp(1.4rem, 3vw, 2rem);
+      margin-top: clamp(1.5rem, 3vw, 2.5rem);
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+   }
+
+   /* Grid of stat tiles: 2 columns */
+   .route-post-content table tbody {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1rem, 2vw, 1.4rem) clamp(1.2rem, 3vw, 2rem);
+   }
+
+   /* Each row = one stat tile, label stacked over value */
+   .route-post-content table tr {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+   }
+
+   /* Label cell */
+   .route-post-content table td:first-child {
+      font-family: var(--font-family-three);
+      font-size: clamp(1rem, 0.85rem + 0.3vw, 1.15rem);
+      font-weight: var(--font-weight-three-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: var(--opacity-two);
+      color: var(--color-font-one);
+   }
+
+   /* Value cell */
+   .route-post-content table td:last-child {
+      font-family: var(--font-family-three);
+      font-size: clamp(1.4rem, 1.1rem + 0.6vw, 1.7rem);
+      font-weight: var(--font-weight-three-bold);
+      color: var(--color-font-one);
+      line-height: 1.2;
+   }
+}
+
+/* Narrow phones: single column */
+@media (max-width: 420px) {
+   .route-post-content table tbody {
+      grid-template-columns: 1fr;
+   }
 }
 
 
 /* --------------------------------------------------------------------------
-   5. KG Card refinements for route posts
+   5. KG card refinements for route posts
    -------------------------------------------------------------------------- */
 .route-post .post-content .kg-toggle-card + .kg-toggle-card {
    margin-top: -0.5rem;
@@ -174,108 +224,4 @@
 .route-post .post-content .kg-gallery-card {
    margin-top: clamp(2rem, 4vw, 3.5rem);
    margin-bottom: clamp(2rem, 4vw, 3.5rem);
-}
-
-.route-post .post-content .kg-button-card .kg-btn {
-   min-height: 48px;
-   font-size: clamp(1.3rem, 1.1rem + 0.3vw, 1.5rem);
-}
-
-
-/* --------------------------------------------------------------------------
-   6. Mobile stats — shown instead of sidebar at narrow widths.
-      .post-sidebar already hides at ≤1024px (screen.css line 4505).
-      We show this element at the same breakpoint.
-   -------------------------------------------------------------------------- */
-.route-stats-mobile {
-   display: none;
-}
-
-.route-stats-mobile .route-stats-mobile-inner {
-   background: var(--color-five);
-   border-radius: var(--border-radius);
-   padding: clamp(1.2rem, 2.5vw, 2rem);
-   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-.route-stats-mobile .route-stats-grid {
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   gap: clamp(0.6rem, 1.2vw, 1rem) clamp(1rem, 3vw, 2rem);
-}
-
-.route-stats-mobile .route-stat-item dt {
-   font-family: var(--font-family-three);
-   font-size: clamp(1rem, 0.8rem + 0.3vw, 1.2rem);
-   font-weight: var(--font-weight-three-medium);
-   color: var(--color-font-one);
-   opacity: var(--opacity-two);
-   text-transform: uppercase;
-   letter-spacing: 0.5px;
-   margin: 0;
-}
-
-.route-stats-mobile .route-stat-item dd {
-   font-family: var(--font-family-three);
-   font-size: clamp(1.3rem, 1rem + 0.5vw, 1.6rem);
-   font-weight: var(--font-weight-three-bold);
-   color: var(--color-font-one);
-   margin: 0.15rem 0 0;
-   padding: 0;
-}
-
-.route-stats-mobile .route-stats-cta {
-   margin-top: clamp(1rem, 1.5vw, 1.5rem);
-   padding-top: clamp(0.8rem, 1.2vw, 1.2rem);
-   border-top: var(--border) var(--color-border-one);
-   display: flex;
-   gap: clamp(0.6rem, 1.5vw, 1rem);
-   flex-wrap: wrap;
-}
-
-.route-stats-mobile .route-stats-cta .route-btn {
-   flex: 1;
-   min-width: 140px;
-}
-
-/* Mirror the same breakpoint where .post-sidebar hides */
-@media (max-width: 1024px) {
-   .route-stats-mobile {
-      display: block;
-   }
-}
-
-/* Narrow phones: single column stats */
-@media (max-width: 380px) {
-   .route-stats-mobile .route-stats-grid {
-      grid-template-columns: 1fr;
-   }
-
-   .route-stats-mobile .route-stats-cta {
-      flex-direction: column;
-   }
-
-   .route-stats-mobile .route-stats-cta .route-btn {
-      min-width: 100%;
-   }
-}
-
-
-/* --------------------------------------------------------------------------
-   7. Print
-   -------------------------------------------------------------------------- */
-@media print {
-   .route-stats-mobile {
-      display: block;
-   }
-
-   .route-stats-mobile .route-stats-grid {
-      grid-template-columns: 1fr 1fr 1fr;
-   }
-
-   .route-btn {
-      border: 1px solid #333;
-      color: #333 !important;
-      background: transparent !important;
-   }
 }
