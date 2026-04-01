@@ -109,6 +109,7 @@
 .route-stats {
    position: sticky;
    top: 100px;
+   width: 100%;
    background: var(--color-five);
    border-radius: var(--border-radius);
    padding: clamp(1.5rem, 2.5vw, 2.5rem);
