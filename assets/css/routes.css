@@ -171,7 +171,7 @@
    padding: 0;
    border: none;
    justify-content: center;
-   gap: 0.4rem;
+   gap: 0.25rem;
 }
 .route-stats .kg-toggle-card .kg-toggle-heading-text {
    font-size: 1rem;
@@ -185,6 +185,12 @@
 .route-stats .kg-toggle-card .kg-toggle-card-icon {
    flex-shrink: 0;
    opacity: var(--opacity-two);
+   width: 14px;
+   height: 14px;
+}
+.route-stats .kg-toggle-card .kg-toggle-card-icon svg {
+   width: 14px;
+   height: 14px;
 }
 .route-stats .kg-toggle-card .kg-toggle-content {
    padding: 0.5rem 0 0;
