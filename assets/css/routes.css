@@ -56,49 +56,63 @@
 /* --------------------------------------------------------------------------
    3. Stats table inside sidebar
 
-   JS moves the <table> from post content into #route-stats-sidebar.
-   We override table display so rows render as label+value pairs stacked
-   vertically, matching the previous <dl> style.
+   JS moves the <table> (or its KG wrapper) from post content into
+   #route-stats-sidebar. We override table display so rows render as
+   compact label+value pairs, and strip all browser/theme table defaults.
    -------------------------------------------------------------------------- */
-.route-stats table,
-.route-stats table tbody,
-.route-stats table tr,
-.route-stats table td {
-   display: block;
-   border: none;
-   padding: 0;
+
+/* KG HTML card wrapper — remove its own spacing */
+.route-stats .kg-html-card,
+.route-stats .kg-html-card-container {
    margin: 0;
-   background: transparent;
-   width: auto;
+   padding: 0;
+}
+
+.route-stats table,
+.route-stats table thead,
+.route-stats table tbody,
+.route-stats table tfoot,
+.route-stats table tr,
+.route-stats table th,
+.route-stats table td {
+   display: block !important;
+   border: none !important;
+   border-bottom: none !important;
+   padding: 0 !important;
+   margin: 0 !important;
+   background: transparent !important;
+   width: auto !important;
+   box-shadow: none !important;
 }
 
 .route-stats table tr {
-   display: flex;
+   display: flex !important;
    flex-direction: column;
-   gap: 0.2rem;
-   margin-top: 0.9rem;
+   gap: 0.15rem;
+   margin-top: 0.75rem !important;
 }
 
 .route-stats table tr:first-child {
-   margin-top: 0;
+   margin-top: 0 !important;
 }
 
 /* Label cell */
 .route-stats table td:first-child {
-   font-size: clamp(1rem, 0.9rem + 0.2vw, 1.1rem);
+   font-size: 1rem;
    font-weight: var(--font-weight-three-medium);
    text-transform: uppercase;
-   letter-spacing: 0.5px;
+   letter-spacing: 0.06em;
    opacity: var(--opacity-two);
    color: var(--color-font-one);
+   line-height: 1;
 }
 
 /* Value cell */
 .route-stats table td:last-child {
-   font-size: clamp(1.3rem, 1.1rem + 0.3vw, 1.5rem);
+   font-size: 1.3rem;
    font-weight: var(--font-weight-three-bold);
    color: var(--color-font-one);
-   line-height: 1.25;
+   line-height: 1.2;
 }
 
 
