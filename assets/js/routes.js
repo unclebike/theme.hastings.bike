@@ -3,8 +3,8 @@
  *
  * On desktop: finds the stats table, walks up to its direct content-level
  * ancestor, moves that element plus any immediately following KG button
- * cards into the sidebar. Stops at the first non-button sibling so body
- * copy placed after the stats stays in the content column.
+ * cards and members-note elements into the sidebar. Stops at the first
+ * sibling that is neither a button card nor a members note.
  * On mobile: does nothing — the table stays in content and CSS styles it.
  */
 
@@ -28,26 +28,24 @@
       splitEl = splitEl.parentElement;
    }
 
-   // A "button card" is any element whose sole child is an <a> tag —
-   // covers both .kg-button-card divs and plain Ghost HTML card buttons.
    function isButtonCard(el) {
-      return el.children.length === 1 && el.firstElementChild.tagName === 'A';
+      return el.classList.contains('kg-button-card');
    }
 
-   // Collect: the stats element + any consecutive button cards that follow.
-   // Stop at the first sibling that isn't a button card (e.g. a paragraph).
+   function isMembersNote(el) {
+      return el.querySelector('.route-members-note') !== null;
+   }
+
+   // Collect: the stats element + any consecutive button cards and members
+   // notes that follow. Stop at the first unrelated sibling.
    var toMove = [splitEl];
    var cursor = splitEl.nextElementSibling;
-   while (cursor && isButtonCard(cursor)) {
+   while (cursor && (isButtonCard(cursor) || isMembersNote(cursor))) {
       toMove.push(cursor);
       cursor = cursor.nextElementSibling;
    }
 
    toMove.forEach(function (el) {
       sidebar.appendChild(el);
-      // Rename any button link to compact sidebar label
-      if (isButtonCard(el)) {
-         el.firstElementChild.textContent = 'Open in RWGPS';
-      }
    });
 })();

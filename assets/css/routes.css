@@ -146,6 +146,16 @@
    box-sizing: border-box;
 }
 
+/* Members note below the button */
+.route-stats .route-members-note {
+   margin: 0.5rem 0 0;
+   font-size: 1rem;
+   line-height: 1.4;
+   opacity: var(--opacity-two);
+   color: var(--color-font-one);
+   text-align: center;
+}
+
 
 /* --------------------------------------------------------------------------
    5. In-content Stats Table
