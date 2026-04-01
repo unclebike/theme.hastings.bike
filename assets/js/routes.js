@@ -2,9 +2,9 @@
  * Route Post Template — routes.js
  *
  * On desktop: finds the stats table, walks up to its direct content-level
- * ancestor, moves that element plus any immediately following KG button
- * cards and members-note elements into the sidebar. Stops at the first
- * sibling that is neither a button card nor a members note.
+ * ancestor, then scans all content children and moves the stats element,
+ * any KG button cards, members-note elements, and toggle cards into the
+ * sidebar. A toggle card placed after a button acts as an expandable caption.
  * On mobile: does nothing — the table stays in content and CSS styles it.
  */
 
@@ -40,11 +40,15 @@
          el.querySelector('.route-members-note') !== null;
    }
 
+   function isToggleCard(el) {
+      return el.classList.contains('kg-toggle-card');
+   }
+
    // Scan all direct children of content (not just consecutive siblings) so
-   // non-matching elements like map iframes don't block button detection.
+   // non-matching elements like map iframes don't block button/toggle detection.
    var toMove = [splitEl];
    Array.from(content.children).forEach(function (el) {
-      if (el !== splitEl && (isButtonCard(el) || isMembersNote(el))) {
+      if (el !== splitEl && (isButtonCard(el) || isMembersNote(el) || isToggleCard(el))) {
          toMove.push(el);
       }
    });

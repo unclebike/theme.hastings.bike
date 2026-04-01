@@ -150,7 +150,7 @@
    box-sizing: border-box;
 }
 
-/* Members note: caption below button */
+/* Members note (legacy plain-HTML fallback) */
 .route-stats .route-members-note,
 .route-stats p.route-members-note {
    margin: 0.5rem 0 0;
@@ -159,6 +159,35 @@
    opacity: var(--opacity-two);
    color: var(--color-font-one);
    text-align: center;
+}
+
+/* Toggle card in sidebar = expandable caption beneath button */
+.route-stats .kg-toggle-card {
+   background: transparent;
+   border: none;
+   padding: 0;
+}
+.route-stats .kg-toggle-card .kg-toggle-heading {
+   padding: 0;
+   border: none;
+}
+.route-stats .kg-toggle-card .kg-toggle-heading-text {
+   font-size: 1rem;
+   font-weight: var(--font-weight-three-medium);
+   text-transform: uppercase;
+   letter-spacing: 0.06em;
+   opacity: var(--opacity-two);
+   color: var(--color-font-one);
+}
+.route-stats .kg-toggle-card .kg-toggle-content {
+   padding: 0.4rem 0 0;
+}
+.route-stats .kg-toggle-card .kg-toggle-content p {
+   font-size: 1rem;
+   line-height: 1.4;
+   opacity: var(--opacity-two);
+   color: var(--color-font-one);
+   margin: 0;
 }
 
 
