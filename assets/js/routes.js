@@ -36,7 +36,8 @@
    }
 
    function isMembersNote(el) {
-      return el.querySelector('.route-members-note') !== null;
+      return el.classList.contains('route-members-note') ||
+         el.querySelector('.route-members-note') !== null;
    }
 
    // Scan all direct children of content (not just consecutive siblings) so
