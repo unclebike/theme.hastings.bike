@@ -28,22 +28,25 @@
       splitEl = splitEl.parentElement;
    }
 
+   // Primary: proper KG button card class.
+   // Fallback: single child that is an <a> (covers unclassed HTML card buttons).
    function isButtonCard(el) {
-      return el.classList.contains('kg-button-card');
+      return el.classList.contains('kg-button-card') ||
+         (el.children.length === 1 && el.firstElementChild.tagName === 'A');
    }
 
    function isMembersNote(el) {
       return el.querySelector('.route-members-note') !== null;
    }
 
-   // Collect: the stats element + any consecutive button cards and members
-   // notes that follow. Stop at the first unrelated sibling.
+   // Scan all direct children of content (not just consecutive siblings) so
+   // non-matching elements like map iframes don't block button detection.
    var toMove = [splitEl];
-   var cursor = splitEl.nextElementSibling;
-   while (cursor && (isButtonCard(cursor) || isMembersNote(cursor))) {
-      toMove.push(cursor);
-      cursor = cursor.nextElementSibling;
-   }
+   Array.from(content.children).forEach(function (el) {
+      if (el !== splitEl && (isButtonCard(el) || isMembersNote(el))) {
+         toMove.push(el);
+      }
+   });
 
    toMove.forEach(function (el) {
       sidebar.appendChild(el);
