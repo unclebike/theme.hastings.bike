@@ -3,6 +3,68 @@
 {{^is "page"}}
 {{#if access}}<progress class="post-progress"></progress>{{/if}}
 {{/is}}
+
+{{#has tag="routes"}}
+{{!-- ============================================================
+     ROUTE POST LAYOUT — auto-applied to posts tagged "routes"
+     ============================================================ --}}
+<article class="post-section route-post">
+	{{#match @page.show_title_and_feature_image}}
+	{{>posts/header}}
+	{{/match}}
+
+	<div class="route-layout-wrap global-padding">
+		<div class="route-layout">
+			<div class="route-content-col">
+				<div class="route-stats-mobile" id="route-stats-mobile"></div>
+
+				<div class="post-content route-post-content">
+					{{#if access}}
+					{{content}}
+					{{^is "page"}}
+					{{>posts/share}}
+					{{/is}}
+					{{else}}
+					{{#if html}}
+					<div class="members-cta-teaser">
+						{{{html}}}
+					</div>
+					{{/if}}
+					{{>members/cta}}
+					{{/if}}
+				</div>
+			</div>
+
+			<aside class="route-sidebar-col">
+				<div class="route-stats" id="route-stats-sidebar">
+					<h2 class="route-stats-title">At a Glance</h2>
+					<dl class="route-stats-list" id="route-stats-list"></dl>
+					<div class="route-stats-cta"></div>
+				</div>
+			</aside>
+		</div>
+
+		<div id="route-sticky-sentinel"></div>
+	</div>
+</article>
+
+{{^is "page"}}
+{{>posts/navigation}}
+{{>posts/comments}}
+{{/is}}
+
+{{#contentFor "fonts_css"}}
+<link rel="stylesheet" type="text/css" href="{{asset "css/routes.css"}}">
+{{/contentFor}}
+
+{{#contentFor "script_js"}}
+<script src="{{asset "js/routes.js"}}"></script>
+{{/contentFor}}
+
+{{else}}
+{{!-- ============================================================
+     DEFAULT POST LAYOUT — all non-route posts
+     ============================================================ --}}
 <article class="post-section{{^is "page"}}{{^match @custom.sidebar "Disable"}} is-sidebar{{/match}}{{/is}}">
 	{{#match @page.show_title_and_feature_image}}
 	{{>posts/header}}
@@ -63,4 +125,6 @@
 {{/get}}
 {{/if}}
 {{/is}}
+
+{{/has}}
 {{/post}}
