@@ -13,7 +13,6 @@
    var sidebar = document.getElementById('route-stats-sidebar');
    var statsList = document.getElementById('route-stats-list');
    var mobileContainer = document.getElementById('route-stats-mobile');
-   var sentinel = document.getElementById('route-sticky-sentinel');
    var postContent = document.querySelector('.route-post-content');
 
    if (!postContent) return;
@@ -120,24 +119,4 @@
       mobileContainer.innerHTML = mobileHTML;
    }
 
-   // -----------------------------------------------------------------------
-   // 5. Sticky sidebar with IntersectionObserver unstick
-   // -----------------------------------------------------------------------
-   if (sidebar && sentinel && typeof IntersectionObserver !== 'undefined') {
-      var observer = new IntersectionObserver(function (entries) {
-         entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-               sidebar.classList.add('is-unstuck');
-            } else {
-               sidebar.classList.remove('is-unstuck');
-            }
-         });
-      }, {
-         root: null,
-         rootMargin: '0px 0px -50% 0px',
-         threshold: 0
-      });
-
-      observer.observe(sentinel);
-   }
 })();

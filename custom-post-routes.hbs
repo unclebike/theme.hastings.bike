@@ -3,50 +3,39 @@
 {{^is "page"}}
 {{#if access}}<progress class="post-progress"></progress>{{/if}}
 {{/is}}
-<article class="post-section route-post">
+<article class="post-section route-post is-sidebar">
 	{{#match @page.show_title_and_feature_image}}
 	{{>posts/header}}
 	{{/match}}
 
-	<div class="route-layout-wrap global-padding">
-		{{!-- Two-column grid: content left, sticky stats right (desktop) --}}
-		<div class="route-layout">
-			<div class="route-content-col">
-				{{!-- Stats box: shown inline on mobile, hidden on desktop (sidebar takes over) --}}
-				<div class="route-stats-mobile" id="route-stats-mobile"></div>
-
-				<div class="post-content route-post-content">
-					{{#if access}}
-					{{content}}
-					{{^is "page"}}
-					{{>posts/share}}
-					{{/is}}
-					{{else}}
-					{{#if html}}
-					<div class="members-cta-teaser">
-						{{{html}}}
-					</div>
-					{{/if}}
-					{{>members/cta}}
-					{{/if}}
-				</div>
+	<div class="post-wrap global-padding">
+		{{!-- Stats sidebar: absolutely positioned like .post-sidebar, sticky inside --}}
+		<div class="post-sidebar route-sidebar">
+			<div class="route-stats subscribe-form is-sticky" id="route-stats-sidebar">
+				<h2 class="route-stats-title">At a Glance</h2>
+				<dl class="route-stats-list" id="route-stats-list"></dl>
+				<div class="route-stats-cta"></div>
 			</div>
-
-			<aside class="route-sidebar-col">
-				<div class="route-stats" id="route-stats-sidebar">
-					<h2 class="route-stats-title">At a Glance</h2>
-					<dl class="route-stats-list" id="route-stats-list">
-						{{!-- Populated from post content table via JS --}}
-					</dl>
-					<div class="route-stats-cta">
-						{{!-- Populated from post content CTA via JS --}}
-					</div>
-				</div>
-			</aside>
 		</div>
 
-		{{!-- Sentinel: sidebar unsticks when this enters viewport --}}
-		<div id="route-sticky-sentinel"></div>
+		{{!-- Mobile stats: injected above content, hidden on desktop --}}
+		<div class="route-stats-mobile" id="route-stats-mobile"></div>
+
+		<div class="post-content route-post-content">
+			{{#if access}}
+			{{content}}
+			{{^is "page"}}
+			{{>posts/share}}
+			{{/is}}
+			{{else}}
+			{{#if html}}
+			<div class="members-cta-teaser">
+				{{{html}}}
+			</div>
+			{{/if}}
+			{{>members/cta}}
+			{{/if}}
+		</div>
 	</div>
 </article>
 
@@ -57,12 +46,10 @@
 
 {{/post}}
 
-{{!-- Route CSS in <head> to avoid FOUC --}}
 {{#contentFor "fonts_css"}}
 <link rel="stylesheet" type="text/css" href="{{asset "css/routes.css"}}">
 {{/contentFor}}
 
-{{!-- Route JS at end of body --}}
 {{#contentFor "script_js"}}
 <script src="{{asset "js/routes.js"}}"></script>
 {{/contentFor}}

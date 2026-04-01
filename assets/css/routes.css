@@ -1,11 +1,13 @@
 /* ==========================================================================
    Route Post Template — routes.css
-   Fluid typography, two-column grid, sticky sidebar, responsive layout
+   Extends the existing post-sidebar/post-wrap pattern from screen.css.
+   Adds fluid typography, stats card styling, and mobile stats grid.
    ========================================================================== */
 
 
 /* --------------------------------------------------------------------------
    1. Fluid Typography Scale (route pages only)
+      Overrides the hard breakpoint sizes in screen.css for .route-post
    -------------------------------------------------------------------------- */
 .route-post .post-content {
    font-size: clamp(1.7rem, 1.4rem + 0.6vw, 2rem);
@@ -45,93 +47,27 @@
 
 
 /* --------------------------------------------------------------------------
-   2. Layout Wrapper
+   2. Route Sidebar — stats card styled within the existing .post-sidebar shell
+      .post-sidebar is already position:absolute, width:290px, height:100%
+      .subscribe-form.is-sticky is already position:sticky
+      We just need to style the contents.
    -------------------------------------------------------------------------- */
-.route-layout-wrap {
-   max-width: var(--max-width-global-wrap);
-   margin: 0 auto;
-}
-
-.route-layout {
-   display: grid;
-   grid-template-columns: 1fr clamp(260px, 28%, 340px);
-   gap: clamp(2.5rem, 4vw, 5rem);
-   align-items: start;
-}
-
-.route-content-col {
-   min-width: 0; /* prevent grid blowout */
-}
-
-
-/* --------------------------------------------------------------------------
-   3. Post Content Overrides (within route layout)
-   -------------------------------------------------------------------------- */
-.route-post .post-content,
-.route-post .route-post-content {
-   max-width: 100%;
-   margin-top: clamp(2rem, 4vw, 5vh);
-   margin-bottom: clamp(5rem, 10vw, 15vh);
-}
-
-/* Let KG cards breathe within the content column */
-.route-post .post-content .kg-card {
-   margin-top: clamp(1.5rem, 3vw, 40px);
-   margin-bottom: clamp(1.5rem, 3vw, 40px);
-}
-
-.route-post .post-content hr,
-.route-post .post-content blockquote,
-.route-post .post-content .kg-card.kg-header-card {
-   margin-top: clamp(2rem, 4vw, 55px);
-   margin-bottom: clamp(2rem, 4vw, 55px);
-}
-
-/* Full-width cards break out of the content column */
-.route-post .post-content .kg-width-full {
-   width: 100%;
-}
-
-/* Gallery cards within the content column */
-.route-post .post-content .kg-gallery-card {
-   margin-left: 0;
-   margin-right: 0;
-}
-
-
-/* --------------------------------------------------------------------------
-   4. Stats Sidebar (desktop)
-   -------------------------------------------------------------------------- */
-.route-sidebar-col {
-   position: relative;
-}
-
-.route-stats {
-   position: sticky;
-   top: 100px;
-   width: 100%;
+.route-sidebar .route-stats {
    background: var(--color-five);
    border-radius: var(--border-radius);
-   padding: clamp(1.5rem, 2.5vw, 2.5rem);
-   transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.route-stats.is-unstuck {
-   position: relative;
-   top: auto;
+   padding: clamp(1.5rem, 2vw, 2.2rem);
 }
 
 .route-stats-title {
    font-family: var(--font-family-one);
    font-weight: var(--font-weight-one-bold);
-   font-size: clamp(1.6rem, 1.2rem + 0.8vw, 2.2rem);
-   margin: 0 0 clamp(1rem, 2vw, 1.8rem);
-   padding-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
+   font-size: clamp(1.6rem, 1.2rem + 0.8vw, 2rem);
+   margin: 0 0 clamp(1rem, 1.5vw, 1.5rem);
+   padding-bottom: clamp(0.8rem, 1vw, 1.2rem);
    border-bottom: var(--border) var(--color-border-one);
    color: var(--color-font-one);
 }
 
-/* Definition list for stats */
 .route-stats-list {
    margin: 0;
    padding: 0;
@@ -139,13 +75,13 @@
 
 .route-stats-list dt {
    font-family: var(--font-family-three);
-   font-size: clamp(1.1rem, 0.9rem + 0.4vw, 1.3rem);
+   font-size: clamp(1rem, 0.9rem + 0.2vw, 1.2rem);
    font-weight: var(--font-weight-three-medium);
    color: var(--color-font-one);
    opacity: var(--opacity-two);
    text-transform: uppercase;
    letter-spacing: 0.5px;
-   margin-top: clamp(0.8rem, 1.2vw, 1.2rem);
+   margin-top: clamp(0.8rem, 1vw, 1.1rem);
 }
 
 .route-stats-list dt:first-child {
@@ -154,112 +90,39 @@
 
 .route-stats-list dd {
    font-family: var(--font-family-three);
-   font-size: clamp(1.4rem, 1.1rem + 0.6vw, 1.7rem);
+   font-size: clamp(1.3rem, 1.1rem + 0.4vw, 1.6rem);
    font-weight: var(--font-weight-three-bold);
    color: var(--color-font-one);
    margin: 0.2rem 0 0;
    padding: 0;
 }
 
-/* CTA in sidebar */
 .route-stats-cta {
-   margin-top: clamp(1.2rem, 2vw, 2rem);
-   padding-top: clamp(1rem, 1.5vw, 1.5rem);
-   border-top: var(--border) var(--color-border-one);
-}
-
-.route-stats-cta a {
-   display: block;
-}
-
-/* Hide sidebar on mobile */
-.route-sidebar-col {
-   display: block;
-}
-
-
-/* --------------------------------------------------------------------------
-   5. Stats Mobile (inline 2-column grid)
-   -------------------------------------------------------------------------- */
-.route-stats-mobile {
-   display: none;
-}
-
-.route-stats-mobile .route-stats-mobile-inner {
-   background: var(--color-five);
-   border-radius: var(--border-radius);
-   padding: clamp(1.2rem, 2.5vw, 2rem);
-   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-.route-stats-mobile .route-stats-title {
-   font-family: var(--font-family-one);
-   font-weight: var(--font-weight-one-bold);
-   font-size: clamp(1.6rem, 1.2rem + 0.8vw, 2rem);
-   margin: 0 0 clamp(0.8rem, 1.5vw, 1.2rem);
-   padding-bottom: clamp(0.6rem, 1vw, 1rem);
-   border-bottom: var(--border) var(--color-border-one);
-   color: var(--color-font-one);
-}
-
-.route-stats-mobile .route-stats-grid {
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   gap: clamp(0.6rem, 1.2vw, 1rem) clamp(1rem, 3vw, 2rem);
-}
-
-.route-stats-mobile .route-stat-item dt {
-   font-family: var(--font-family-three);
-   font-size: clamp(1rem, 0.8rem + 0.4vw, 1.2rem);
-   font-weight: var(--font-weight-three-medium);
-   color: var(--color-font-one);
-   opacity: var(--opacity-two);
-   text-transform: uppercase;
-   letter-spacing: 0.5px;
-   margin: 0;
-}
-
-.route-stats-mobile .route-stat-item dd {
-   font-family: var(--font-family-three);
-   font-size: clamp(1.3rem, 1rem + 0.6vw, 1.6rem);
-   font-weight: var(--font-weight-three-bold);
-   color: var(--color-font-one);
-   margin: 0.15rem 0 0;
-   padding: 0;
-}
-
-.route-stats-mobile .route-stats-cta {
-   margin-top: clamp(1rem, 1.5vw, 1.5rem);
-   padding-top: clamp(0.8rem, 1.2vw, 1.2rem);
+   margin-top: clamp(1rem, 1.5vw, 1.8rem);
+   padding-top: clamp(0.8rem, 1vw, 1.2rem);
    border-top: var(--border) var(--color-border-one);
    display: flex;
-   gap: clamp(0.6rem, 1.5vw, 1rem);
-   flex-wrap: wrap;
-}
-
-.route-stats-mobile .route-stats-cta a {
-   flex: 1;
-   min-width: 140px;
+   flex-direction: column;
+   gap: 0.6rem;
 }
 
 
 /* --------------------------------------------------------------------------
-   6. Route CTA Buttons
+   3. CTA Buttons
    -------------------------------------------------------------------------- */
 .route-btn {
-   display: inline-flex;
+   display: flex;
    align-items: center;
    justify-content: center;
-   gap: 0.5em;
    font-family: var(--font-family-three);
-   font-size: clamp(1.3rem, 1.1rem + 0.4vw, 1.6rem);
+   font-size: clamp(1.3rem, 1.1rem + 0.3vw, 1.5rem);
    font-weight: var(--font-weight-three-bold);
    line-height: 1;
    text-decoration: none;
-   padding: clamp(0.8rem, 1.2vw, 1.1rem) clamp(1.2rem, 2vw, 1.8rem);
-   border-radius: calc(var(--border-radius) * 0.6);
-   min-height: 48px; /* touch target */
-   transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+   padding: clamp(0.9rem, 1vw, 1.1rem) clamp(1rem, 1.5vw, 1.6rem);
+   border-radius: calc(var(--border-radius) * 0.5);
+   min-height: 48px;
+   transition: filter 0.2s ease, transform 0.15s ease;
    cursor: pointer;
 }
 
@@ -294,7 +157,7 @@
 
 
 /* --------------------------------------------------------------------------
-   7. Hide Original Stats Table (moved to sidebar)
+   4. Hide original stats table — moved into sidebar
    -------------------------------------------------------------------------- */
 .route-post .post-content table.route-data-table {
    display: none;
@@ -302,72 +165,87 @@
 
 
 /* --------------------------------------------------------------------------
-   8. KG Card Refinements for Route Posts
+   5. KG Card refinements for route posts
    -------------------------------------------------------------------------- */
-
-/* Toggle cards — tighter spacing when stacked */
 .route-post .post-content .kg-toggle-card + .kg-toggle-card {
    margin-top: -0.5rem;
 }
 
-/* Callout cards — subtle accent left border for route context */
-.route-post .post-content .kg-callout-card {
-   border-radius: calc(var(--border-radius) * 0.6);
-}
-
-/* Gallery — fluid margins */
 .route-post .post-content .kg-gallery-card {
    margin-top: clamp(2rem, 4vw, 3.5rem);
    margin-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
-/* Button cards within route posts — ensure good touch targets */
 .route-post .post-content .kg-button-card .kg-btn {
    min-height: 48px;
-   font-size: clamp(1.3rem, 1.1rem + 0.4vw, 1.6rem);
+   font-size: clamp(1.3rem, 1.1rem + 0.3vw, 1.5rem);
 }
 
 
 /* --------------------------------------------------------------------------
-   9. Responsive: Tablet & Mobile
+   6. Mobile stats — shown instead of sidebar at narrow widths.
+      .post-sidebar already hides at ≤1024px (screen.css line 4505).
+      We show this element at the same breakpoint.
    -------------------------------------------------------------------------- */
+.route-stats-mobile {
+   display: none;
+}
 
-/* Tablet: collapse to single column below 900px */
-@media (max-width: 900px) {
-   .route-layout {
-      grid-template-columns: 1fr;
-      gap: 0;
-   }
+.route-stats-mobile .route-stats-mobile-inner {
+   background: var(--color-five);
+   border-radius: var(--border-radius);
+   padding: clamp(1.2rem, 2.5vw, 2rem);
+   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
 
-   .route-sidebar-col {
-      display: none;
-   }
+.route-stats-mobile .route-stats-grid {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: clamp(0.6rem, 1.2vw, 1rem) clamp(1rem, 3vw, 2rem);
+}
 
+.route-stats-mobile .route-stat-item dt {
+   font-family: var(--font-family-three);
+   font-size: clamp(1rem, 0.8rem + 0.3vw, 1.2rem);
+   font-weight: var(--font-weight-three-medium);
+   color: var(--color-font-one);
+   opacity: var(--opacity-two);
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
+   margin: 0;
+}
+
+.route-stats-mobile .route-stat-item dd {
+   font-family: var(--font-family-three);
+   font-size: clamp(1.3rem, 1rem + 0.5vw, 1.6rem);
+   font-weight: var(--font-weight-three-bold);
+   color: var(--color-font-one);
+   margin: 0.15rem 0 0;
+   padding: 0;
+}
+
+.route-stats-mobile .route-stats-cta {
+   margin-top: clamp(1rem, 1.5vw, 1.5rem);
+   padding-top: clamp(0.8rem, 1.2vw, 1.2rem);
+   border-top: var(--border) var(--color-border-one);
+   display: flex;
+   gap: clamp(0.6rem, 1.5vw, 1rem);
+   flex-wrap: wrap;
+}
+
+.route-stats-mobile .route-stats-cta .route-btn {
+   flex: 1;
+   min-width: 140px;
+}
+
+/* Mirror the same breakpoint where .post-sidebar hides */
+@media (max-width: 1024px) {
    .route-stats-mobile {
       display: block;
    }
 }
 
-/* Small tablets and large phones */
-@media (max-width: 768px) {
-   .route-post .post-content {
-      max-width: 100%;
-   }
-
-   .route-post .post-content .kg-card {
-      margin-top: clamp(1.2rem, 2.5vw, 30px);
-      margin-bottom: clamp(1.2rem, 2.5vw, 30px);
-   }
-
-   .route-post .post-content hr,
-   .route-post .post-content blockquote,
-   .route-post .post-content .kg-card.kg-header-card {
-      margin-top: clamp(1.5rem, 3vw, 35px);
-      margin-bottom: clamp(1.5rem, 3vw, 35px);
-   }
-}
-
-/* Small phones: stack stats grid to 1 column for very narrow screens */
+/* Narrow phones: single column stats */
 @media (max-width: 380px) {
    .route-stats-mobile .route-stats-grid {
       grid-template-columns: 1fr;
@@ -377,20 +255,16 @@
       flex-direction: column;
    }
 
-   .route-stats-mobile .route-stats-cta a {
+   .route-stats-mobile .route-stats-cta .route-btn {
       min-width: 100%;
    }
 }
 
 
 /* --------------------------------------------------------------------------
-   10. Print Styles
+   7. Print
    -------------------------------------------------------------------------- */
 @media print {
-   .route-sidebar-col {
-      display: none;
-   }
-
    .route-stats-mobile {
       display: block;
    }
@@ -401,7 +275,7 @@
 
    .route-btn {
       border: 1px solid #333;
-      color: #333;
-      background: transparent;
+      color: #333 !important;
+      background: transparent !important;
    }
 }
