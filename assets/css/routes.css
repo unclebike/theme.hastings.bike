@@ -162,14 +162,20 @@
 }
 
 /* Toggle card in sidebar = expandable caption beneath button */
+.route-stats .kg-toggle-card,
+.route-stats .kg-toggle-card *,
+.route-stats .kg-toggle-card *:before,
+.route-stats .kg-toggle-card *:after {
+   background: transparent !important;
+   border: none !important;
+   box-shadow: none !important;
+   outline: none !important;
+}
 .route-stats .kg-toggle-card {
-   background: transparent;
-   border: none;
    padding: 0;
 }
 .route-stats .kg-toggle-card .kg-toggle-heading {
    padding: 0;
-   border: none;
    justify-content: center;
    gap: 0.25rem;
 }
