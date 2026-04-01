@@ -28,21 +28,26 @@
       splitEl = splitEl.parentElement;
    }
 
-   // Collect: the stats element + any consecutive KG button cards that follow.
+   // A "button card" is any element whose sole child is an <a> tag —
+   // covers both .kg-button-card divs and plain Ghost HTML card buttons.
+   function isButtonCard(el) {
+      return el.children.length === 1 && el.firstElementChild.tagName === 'A';
+   }
+
+   // Collect: the stats element + any consecutive button cards that follow.
    // Stop at the first sibling that isn't a button card (e.g. a paragraph).
    var toMove = [splitEl];
    var cursor = splitEl.nextElementSibling;
-   while (cursor && cursor.classList.contains('kg-button-card')) {
+   while (cursor && isButtonCard(cursor)) {
       toMove.push(cursor);
       cursor = cursor.nextElementSibling;
    }
 
    toMove.forEach(function (el) {
       sidebar.appendChild(el);
-      // Rename button labels to a compact sidebar-appropriate string
-      if (el.classList.contains('kg-button-card')) {
-         var btn = el.querySelector('.kg-btn');
-         if (btn) btn.textContent = 'Open in RWGPS';
+      // Rename any button link to compact sidebar label
+      if (isButtonCard(el)) {
+         el.firstElementChild.textContent = 'Open in RWGPS';
       }
    });
 })();
