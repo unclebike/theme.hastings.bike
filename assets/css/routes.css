@@ -148,6 +148,7 @@
    display: block;
    text-align: center;
    box-sizing: border-box;
+   pointer-events: auto; /* override .post-sidebar div > a { pointer-events: none } */
 }
 
 /* Members note (legacy plain-HTML fallback) */
