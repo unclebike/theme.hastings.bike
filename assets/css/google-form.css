@@ -1,10 +1,73 @@
 /**
  * Google Form Styles
- * 
+ *
  * Styles for Google Forms embedded via URL cards.
  * Includes multi-step flow support with progress indicators,
  * completed step cards, and trailing buttons card.
  */
+
+/* =====================
+   Reiro Theme Compatibility
+   Provide fallbacks for vars that snook defined but reiro doesn't,
+   and use currentColor-based borders so the styling works in both
+   light and dark color schemes.
+   ===================== */
+
+.google-form-container {
+    --scale: 1;
+    --font1: inherit;
+    --font2: inherit;
+    --background-color: var(--color-body, #fff);
+    --text-color: var(--color-font-one, currentColor);
+    --gf-border: color-mix(in srgb, currentColor 18%, transparent);
+    --gf-border-strong: color-mix(in srgb, currentColor 32%, transparent);
+    --gf-input-bg: color-mix(in srgb, currentColor 6%, transparent);
+    --gf-muted: color-mix(in srgb, currentColor 60%, transparent);
+    --gf-divider: color-mix(in srgb, currentColor 12%, transparent);
+    color: var(--text-color);
+}
+
+/* Override every hardcoded rgba(0,0,0,…) border so dark mode works */
+.google-form-card,
+.google-form-loading,
+.google-form-fallback {
+    border-color: var(--gf-border) !important;
+    background: var(--gf-input-bg);
+}
+
+.google-form-progress,
+.google-form-header,
+.google-form-submit {
+    border-color: var(--gf-divider) !important;
+}
+
+.google-form-input,
+.google-form-textarea,
+.google-form-select {
+    border-color: var(--gf-border-strong) !important;
+    background: var(--gf-input-bg) !important;
+    color: var(--text-color);
+}
+
+.google-form-input::placeholder,
+.google-form-textarea::placeholder {
+    color: var(--gf-muted) !important;
+}
+
+.google-form-radio,
+.google-form-checkbox {
+    border-color: var(--gf-border-strong) !important;
+}
+
+.google-form-field-description {
+    color: var(--gf-muted);
+    opacity: 1;
+}
+
+/* Custom select arrow in currentColor (swap the hardcoded #333 arrow) */
+.google-form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='currentColor' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
+}
 
 /* =====================
    Hidden Elements (Flow Control)
