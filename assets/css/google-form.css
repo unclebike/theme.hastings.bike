@@ -32,7 +32,7 @@
 .google-form-loading,
 .google-form-fallback {
     border-color: var(--gf-border) !important;
-    background: var(--gf-input-bg);
+    background-color: var(--gf-input-bg);
 }
 
 .google-form-progress,
@@ -45,7 +45,7 @@
 .google-form-textarea,
 .google-form-select {
     border-color: var(--gf-border-strong) !important;
-    background: var(--gf-input-bg) !important;
+    background-color: var(--gf-input-bg) !important;
     color: var(--text-color);
 }
 
