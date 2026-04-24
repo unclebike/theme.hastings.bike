@@ -1,0 +1,28 @@
+{{!< default}}
+{{#post}}
+<article class="post-section">
+	{{#match @page.show_title_and_feature_image}}
+	{{>posts/header}}
+	{{/match}}
+	<div class="post-wrap global-padding">
+		<div class="post-content">
+			<div class="google-form-container"
+				data-page-slug="{{slug}}"
+				{{#if @member}}
+				data-member-email="{{@member.email}}"
+				data-member-name="{{@member.name}}"
+				{{/if}}>
+				{{content}}
+			</div>
+		</div>
+	</div>
+</article>
+{{/post}}
+
+{{#contentFor "fonts_css"}}
+<link rel="stylesheet" type="text/css" href="{{asset "css/google-form.css"}}">
+{{/contentFor}}
+
+{{#contentFor "script_js"}}
+<script src="{{asset "js/google-form.js"}}"></script>
+{{/contentFor}}
