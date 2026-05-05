@@ -23,11 +23,53 @@
     ></iframe>
   </div>
 
-  {{!-- Route listing --}}
-  {{#get "posts" limit="all" filter="tag:tyendinaga+tag:routes" include="tags" order="title asc"}}
+  {{!-- Wayfinding Routes — loops leaving from the Tyendinaga rec hall --}}
+  {{#get "posts" limit="all" filter="tag:tyendinaga+tag:wayfinding+tag:routes" include="tags" order="title asc"}}
     {{#if posts}}
       <div class="explore-header">
-        <h2 class="explore-heading">{{plural posts.length empty="No routes" singular="1 Route" plural="% Routes"}}</h2>
+        <small class="global-subtitle">{{t "Wayfinding Routes"}}</small>
+        <h2 class="explore-heading">Loops from the Rec Hall</h2>
+        <p class="explore-blurb">Six signed loops that start and finish at the Tyendinaga Township Rec Hall — follow the wayfinding signs out into the back roads.</p>
+      </div>
+
+      <div class="explore-grid">
+        {{#foreach posts}}
+          <a href="{{url}}" class="explore-card" data-excerpt="{{custom_excerpt}}">
+            <div class="explore-card-img">
+              {{#if feature_image}}
+                <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy">
+              {{else}}
+                <div class="explore-card-img-placeholder"></div>
+              {{/if}}
+            </div>
+            <div class="explore-card-body">
+              <h3 class="explore-card-title">{{title}}</h3>
+              <div class="explore-card-stats"></div>
+              <div class="explore-card-meta">
+                {{#foreach tags visibility="public"}}
+                  {{#unless (match slug "routes")}}
+                    {{#unless (match slug "tyendinaga")}}
+                      {{#unless (match slug "wayfinding")}}
+                        <span class="explore-pill">{{name}}</span>
+                      {{/unless}}
+                    {{/unless}}
+                  {{/unless}}
+                {{/foreach}}
+              </div>
+            </div>
+          </a>
+        {{/foreach}}
+      </div>
+    {{/if}}
+  {{/get}}
+
+  {{!-- Nearby Adventures — other Tyendinaga routes that aren't part of the wayfinding loops --}}
+  {{#get "posts" limit="all" filter="tag:tyendinaga+tag:routes-tag:wayfinding" include="tags" order="title asc"}}
+    {{#if posts}}
+      <div class="explore-header" style="margin-top:3em">
+        <small class="global-subtitle">{{t "Nearby Adventures"}}</small>
+        <h2 class="explore-heading">{{plural posts.length empty="No routes" singular="1 Route" plural="% Routes"}} Beyond the Loops</h2>
+        <p class="explore-blurb">Longer rides and connector routes through and around Tyendinaga Township.</p>
       </div>
 
       <div class="explore-grid">
