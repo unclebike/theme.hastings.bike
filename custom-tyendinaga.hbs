@@ -1,0 +1,129 @@
+{{!< default}}
+{{#post}}
+{{#match @page.show_title_and_feature_image}}
+{{>posts/header is_custom=true}}
+{{/match}}
+
+{{!--
+  Tyendinaga landing page.
+  Routes/POIs come from the Hastings RWGPS account, filtered to the
+  "Tyendinaga Township" collection (id 8894337) by rwgps_id whitelist.
+  Ghost route posts and event posts are filtered by tag:tyendinaga.
+--}}
+
+<div class="global-padding">
+
+  {{!-- Map: filtered to Tyendinaga collection routes --}}
+  <div class="route-explorer-map" style="margin-bottom:2.5em">
+    <iframe
+      src="https://boq.bike/api/routes/explore/map?org=hastings&amp;site=https://hastings.bike&amp;ids=54132605,54132538,54132667,54132651,54132547,54655698"
+      title="Tyendinaga Route Explorer"
+      loading="lazy"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  {{!-- Route listing --}}
+  {{#get "posts" limit="all" filter="tag:tyendinaga+tag:routes" include="tags" order="title asc"}}
+    {{#if posts}}
+      <div class="explore-header">
+        <h2 class="explore-heading">{{plural posts.length empty="No routes" singular="1 Route" plural="% Routes"}}</h2>
+      </div>
+
+      <div class="explore-grid">
+        {{#foreach posts}}
+          <a href="{{url}}" class="explore-card" data-excerpt="{{custom_excerpt}}">
+            <div class="explore-card-img">
+              {{#if feature_image}}
+                <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy">
+              {{else}}
+                <div class="explore-card-img-placeholder"></div>
+              {{/if}}
+            </div>
+            <div class="explore-card-body">
+              <h3 class="explore-card-title">{{title}}</h3>
+              <div class="explore-card-stats"></div>
+              <div class="explore-card-meta">
+                {{#foreach tags visibility="public"}}
+                  {{#unless (match slug "routes")}}
+                    {{#unless (match slug "tyendinaga")}}
+                      <span class="explore-pill">{{name}}</span>
+                    {{/unless}}
+                  {{/unless}}
+                {{/foreach}}
+              </div>
+            </div>
+          </a>
+        {{/foreach}}
+      </div>
+    {{/if}}
+  {{/get}}
+
+  {{!-- Events listing: detail cards --}}
+  {{#get "posts" limit="all" filter="tag:tyendinaga+tag:event" include="tags,authors" order="published_at desc"}}
+    {{#if posts}}
+      <section class="events-list tyendinaga-events" style="margin-top:3em">
+        <small class="global-subtitle">{{t "Upcoming Events in Tyendinaga"}}</small>
+        <h2 class="events-title">{{plural posts.length empty="No events" singular="1 Event" plural="% Events"}}</h2>
+        <ul class="events-items">
+          {{#foreach posts}}
+            <li class="event-item">
+              <a href="{{url}}" class="event-link">
+                {{#if feature_image}}
+                  <div class="event-image">
+                    <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy">
+                  </div>
+                {{/if}}
+                <div class="event-body">
+                  <h3 class="event-title">{{title}}</h3>
+                  {{#if custom_excerpt}}
+                    <p class="event-excerpt">{{custom_excerpt}}</p>
+                  {{else}}
+                    <p class="event-excerpt">{{excerpt words="40"}}</p>
+                  {{/if}}
+                  <div class="event-meta">
+                    {{#foreach tags visibility="public"}}
+                      {{#unless (match slug "event")}}
+                        {{#unless (match slug "tyendinaga")}}
+                          <span class="explore-pill">{{name}}</span>
+                        {{/unless}}
+                      {{/unless}}
+                    {{/foreach}}
+                  </div>
+                </div>
+              </a>
+            </li>
+          {{/foreach}}
+        </ul>
+      </section>
+    {{/if}}
+  {{/get}}
+
+  {{#if post.html}}
+    <div class="post-content tyendinaga-content" style="margin-top:3em">
+      {{content}}
+    </div>
+  {{/if}}
+
+</div>
+
+<script>
+(function() {
+  document.querySelectorAll('.explore-card').forEach(function(card) {
+    var excerpt = card.getAttribute('data-excerpt') || '';
+    var statsEl = card.querySelector('.explore-card-stats');
+    if (!statsEl || !excerpt) return;
+
+    var html = [];
+
+    var km = excerpt.match(/(\d+(?:\.\d+)?)\s*km/i);
+    if (km) html.push(km[1] + ' km');
+
+    var diff = excerpt.match(/(\w+)\s+difficulty/i);
+    if (diff) html.push(diff[1]);
+
+    if (html.length) statsEl.innerHTML = html.join(' <span class="stat-sep">•</span> ');
+  });
+})();
+</script>
+{{/post}}
