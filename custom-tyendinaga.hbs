@@ -64,7 +64,7 @@
   {{/get}}
 
   {{!-- Nearby Adventures — other Tyendinaga routes that aren't part of the wayfinding loops --}}
-  {{#get "posts" limit="all" filter="tag:tyendinaga+tag:routes-tag:wayfinding" include="tags" order="title asc"}}
+  {{#get "posts" limit="all" filter="tag:tyendinaga+tag:routes+tag:-wayfinding" include="tags" order="title asc"}}
     {{#if posts}}
       <div class="explore-header" style="margin-top:3em">
         <small class="global-subtitle">{{t "Nearby Adventures"}}</small>
