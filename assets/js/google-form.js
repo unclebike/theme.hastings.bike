@@ -423,7 +423,30 @@
         const submitBtn = form.querySelector('.google-form-btn');
         const btnText = submitBtn?.querySelector('.btn-text');
         const step = flow.forms[stepIndex];
-        
+
+        // Wire up "Other" rows: typing in the text input updates the
+        // sibling toggle's `value` so FormData picks up the typed text.
+        // Clicking the toggle without typing focuses the text input.
+        form.querySelectorAll('.google-form-other-row').forEach(row => {
+            const toggle = row.querySelector('.google-form-other-toggle');
+            const text = row.querySelector('.google-form-other-input');
+            if (!toggle || !text) return;
+
+            text.addEventListener('input', () => {
+                toggle.value = text.value;
+                if (text.value) toggle.checked = true;
+            });
+            toggle.addEventListener('change', () => {
+                if (toggle.checked) text.focus();
+                else toggle.value = '';
+            });
+            // Treat focusing the text field as picking the Other option.
+            text.addEventListener('focus', () => {
+                toggle.checked = true;
+                toggle.value = text.value;
+            });
+        });
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -446,6 +469,8 @@
                 const formData = new FormData(form);
                 
                 for (const [key, value] of formData.entries()) {
+                    // Skip empty "Other" toggles that were never filled in
+                    if (value === '') continue;
                     // Handle multiple values (checkboxes)
                     if (formDataObj[key]) {
                         if (Array.isArray(formDataObj[key])) {
@@ -846,45 +871,78 @@
      * Build radio button group
      */
     function buildRadioGroup(field) {
-        if (!field.options || field.options.length === 0) {
+        if ((!field.options || field.options.length === 0) && !field.allowOther) {
             return '<p class="google-form-error">No options available</p>';
         }
-        
+
         const requiredAttr = field.required ? 'required' : '';
-        
-        const optionsHtml = field.options.map((option, index) => `
+
+        const optionsHtml = (field.options || []).map((option) => `
             <label class="google-form-radio-label">
-                <input type="radio" 
-                       name="${escapeHtml(field.id)}" 
+                <input type="radio"
+                       name="${escapeHtml(field.id)}"
                        value="${escapeHtml(option)}"
                        ${requiredAttr}
                        class="google-form-radio">
                 <span class="google-form-radio-text">${escapeHtml(option)}</span>
             </label>
         `).join('');
-        
-        return `<div class="google-form-radio-group">${optionsHtml}</div>`;
+
+        const otherHtml = field.allowOther ? buildOtherRow(field, 'radio', requiredAttr) : '';
+
+        return `<div class="google-form-radio-group" data-allow-other="${field.allowOther ? 'true' : 'false'}">${optionsHtml}${otherHtml}</div>`;
+    }
+
+    /**
+     * Build the "Other" row for a radio or checkbox group.
+     * The radio/checkbox itself carries the user-typed value via `value=`
+     * (updated live as the user types), so standard FormData collection works
+     * and Apps Script's createResponse() accepts non-listed text as the Other
+     * answer when hasOtherOption() is true on the question.
+     */
+    function buildOtherRow(field, kind, requiredAttr) {
+        const inputType = kind === 'checkbox' ? 'checkbox' : 'radio';
+        const wrapperClass = kind === 'checkbox' ? 'google-form-checkbox-label' : 'google-form-radio-label';
+        const inputClass = kind === 'checkbox' ? 'google-form-checkbox' : 'google-form-radio';
+        // Empty initial value — gets filled in from the adjacent text input.
+        return `
+            <label class="${wrapperClass} google-form-other-row">
+                <input type="${inputType}"
+                       name="${escapeHtml(field.id)}"
+                       value=""
+                       ${kind === 'radio' ? requiredAttr : ''}
+                       class="${inputClass} google-form-other-toggle"
+                       data-other="true">
+                <span class="google-form-${kind}-text google-form-other-label">Other:</span>
+                <input type="text"
+                       class="google-form-input google-form-other-input"
+                       placeholder="Please specify"
+                       aria-label="Other (please specify) for ${escapeHtml(field.label)}">
+            </label>
+        `;
     }
 
     /**
      * Build checkbox group
      */
     function buildCheckboxGroup(field) {
-        if (!field.options || field.options.length === 0) {
+        if ((!field.options || field.options.length === 0) && !field.allowOther) {
             return '<p class="google-form-error">No options available</p>';
         }
-        
-        const optionsHtml = field.options.map((option, index) => `
+
+        const optionsHtml = (field.options || []).map((option) => `
             <label class="google-form-checkbox-label">
-                <input type="checkbox" 
-                       name="${escapeHtml(field.id)}" 
+                <input type="checkbox"
+                       name="${escapeHtml(field.id)}"
                        value="${escapeHtml(option)}"
                        class="google-form-checkbox">
                 <span class="google-form-checkbox-text">${escapeHtml(option)}</span>
             </label>
         `).join('');
-        
-        return `<div class="google-form-checkbox-group">${optionsHtml}</div>`;
+
+        const otherHtml = field.allowOther ? buildOtherRow(field, 'checkbox', '') : '';
+
+        return `<div class="google-form-checkbox-group" data-allow-other="${field.allowOther ? 'true' : 'false'}">${optionsHtml}${otherHtml}</div>`;
     }
 
     /**
