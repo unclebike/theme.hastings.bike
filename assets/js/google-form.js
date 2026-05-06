@@ -22,7 +22,7 @@
     'use strict';
 
     // API endpoint for fetching form structure
-    const API_BASE = 'https://thebreaksales.ca/api';
+    const API_BASE = 'https://hastings.bike/api';
     
     // Default messages
     const DEFAULT_SUCCESS_MESSAGE = 'Thanks! Your response has been recorded.';
