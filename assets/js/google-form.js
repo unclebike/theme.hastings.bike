@@ -302,7 +302,7 @@
             ? `<div class="google-form-progress">Step ${stepIndex + 1} of ${totalForms}</div>`
             : '';
         
-        const fieldsHtml = formData.fields.map(field => buildFieldHtml(field)).join('');
+        const fieldsHtml = formData.fields.map(field => buildFieldHtml(field, formData)).join('');
         
         element.innerHTML = `
             ${progressHtml}
@@ -777,7 +777,7 @@
     /**
      * Build HTML for a single field
      */
-    function buildFieldHtml(field) {
+    function buildFieldHtml(field, formData) {
         const requiredMark = field.required ? '<span class="required">*</span>' : '';
         const requiredAttr = field.required ? 'required' : '';
         
@@ -846,10 +846,24 @@
                 `;
                 break;
                 
+            case 'scale':
+            case 'grid':
+            case 'file':
+                // Question types we recognise but cannot render natively.
+                // Show a notice with a link to fill that one in on Google.
+                inputHtml = `
+                    <p class="google-form-field-description">
+                        This question type isn't supported here yet.
+                        Please answer it on the
+                        <a href="https://docs.google.com/forms/d/e/${escapeHtml(formData.formId)}/viewform" target="_blank" rel="noopener">original Google Form</a>.
+                    </p>
+                `;
+                break;
+
             default:
                 inputHtml = `
-                    <input type="text" 
-                           name="${escapeHtml(field.id)}" 
+                    <input type="text"
+                           name="${escapeHtml(field.id)}"
                            id="${escapeHtml(field.id)}"
                            ${requiredAttr}
                            class="google-form-input">
