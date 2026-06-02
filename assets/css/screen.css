@@ -6423,6 +6423,29 @@ div.is-archive-image {
   }
 }
 
+/* Events embed (RideWithGPS group-rides calendar)
+   –––––––––––––––––––––––––––––––––––––––––––––––––––– */
+.events-embed-frame {
+  margin-top: 1.5em;
+}
+
+/* width:1px + min-width:100% is RideWithGPS's responsive trick: the iframe
+   fills its container width while keeping the fixed height the embed needs. */
+.events-embed-frame iframe {
+  display: block;
+  width: 1px;
+  min-width: 100%;
+  height: 700px;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+@media (max-width: 767px) {
+  .events-embed-frame iframe {
+    border-radius: 0;
+  }
+}
+
 /* Community Events
    –––––––––––––––––––––––––––––––––––––––––––––––––––– */
 .community-events-section {

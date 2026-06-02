@@ -101,6 +101,24 @@
     {{/if}}
   {{/get}}
 
+  {{!-- Group rides calendar: RideWithGPS events embed for the Tyendinaga club tag.
+       Hardcoded here (rather than pasted into the page body) because Ghost strips
+       <iframe> tags out of editor content. Lives outside .post-content so reframe.js
+       leaves its fixed height alone. --}}
+  <section class="events-embed" style="margin-top:3em">
+    <small class="global-subtitle">{{t "Upcoming Group Rides"}}</small>
+    <h2 class="explore-heading">Ride the Township!</h2>
+    <p class="explore-blurb">Check back occasionally for new group rides in Tyendinaga Township.</p>
+    <div class="events-embed-frame">
+      <iframe
+        src="https://ridewithgps.com/embeds?type=events&amp;clubId=6600&amp;showOrganizers=false&amp;showImage=false&amp;tagname=Tyendinaga&amp;color=e39999"
+        title="Ride the Township! — Tyendinaga group rides"
+        loading="lazy"
+        scrolling="no"
+      ></iframe>
+    </div>
+  </section>
+
   {{!-- Events listing: detail cards --}}
   {{#get "posts" limit="all" filter="tag:tyendinaga+tag:event" include="tags,authors" order="published_at desc"}}
     {{#if posts}}
