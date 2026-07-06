@@ -6796,3 +6796,55 @@ div.is-archive-image {
   line-height: 1.6;
 }
 
+/* ════════════════════════════════════════════════════════════════════════
+   Ride Tyendinaga — page-scoped brand skin
+   Continuity with boq.bike/ridetyendinaga + the township's hosted layout.
+   Brand: coral #ef7b6d accent on warm cream. Scoped to .tyendinaga-page so
+   nothing else in the theme is affected, and it holds across light/sepia/dark.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.tyendinaga-page {
+  /* Recolors pills, card-hover borders, and links to the brand coral */
+  --ghost-accent-color: #ef7b6d;
+}
+
+/* Section kickers (the prominent subtitle line) in brand coral */
+.tyendinaga-page .global-subtitle {
+  color: #ef7b6d;
+}
+
+/* ── Brand header ─────────────────────────────────────────────────────── */
+.tyendinaga-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  padding: clamp(1.5rem, 4vw, 2.75rem) 1.25rem clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 2.5em;
+  background: #fbf6ea;
+  border: 1px solid #e8e3d7;
+  border-radius: 14px;
+}
+
+.tyendinaga-wordmark {
+  margin: 0;
+  font-weight: var(--font-weight-three-bold);
+  font-size: clamp(2.1rem, 1.4rem + 3.2vw, 3.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #2E2E2E;
+}
+
+.tyendinaga-wordmark-ride {
+  color: #ef7b6d;
+}
+
+.tyendinaga-tagline {
+  margin: 0;
+  color: #2E2E2E;
+  font-weight: var(--font-weight-three-medium);
+  letter-spacing: 0.02em;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+}
+
