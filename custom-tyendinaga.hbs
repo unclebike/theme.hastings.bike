@@ -11,7 +11,16 @@
   Ghost route posts and event posts are filtered by tag:tyendinaga.
 --}}
 
-<div class="global-padding">
+<div class="global-padding tyendinaga-page">
+
+  {{!-- Ride Tyendinaga brand header — ties this page to the boq.bike/ridetyendinaga
+       microsite and the township's hosted layout. Rendered as a text wordmark
+       because the microsite's logo.svg asset is not currently served (it 404s
+       to an app shell). Swap in an <img> here once a stable logo URL exists. --}}
+  <div class="tyendinaga-brand">
+    <p class="tyendinaga-wordmark"><span class="tyendinaga-wordmark-ride">Ride</span> Tyendinaga</p>
+    <p class="tyendinaga-tagline">Share the Road. Share the Township.</p>
+  </div>
 
   {{!-- Map: filtered to Tyendinaga collection routes --}}
   <div class="route-explorer-map" style="margin-bottom:2.5em">
@@ -111,7 +120,7 @@
     <p class="explore-blurb">Check back occasionally for new group rides in Tyendinaga Township.</p>
     <div class="events-embed-frame">
       <iframe
-        src="https://ridewithgps.com/embeds?type=events&amp;clubId=6600&amp;showOrganizers=false&amp;showImage=false&amp;tagname=Tyendinaga&amp;color=e39999"
+        src="https://ridewithgps.com/embeds?type=events&amp;clubId=6600&amp;showOrganizers=false&amp;showImage=false&amp;tagname=Tyendinaga&amp;color=ef7b6d"
         title="Ride the Township! — Tyendinaga group rides"
         loading="lazy"
         scrolling="no"
